@@ -1,55 +1,51 @@
-# hello-ext
+# youtube-links
 
-<!-- Answer elevator-pitch questions about the extension – What is it? What does it do? What
-essential problem does it solve? -->
-
-hello-ext adds a Sphinx directive that generates a custom greeting.
+youtube-links adds a Sphinx directive that creates styled YouTube video links with
+automatic title extraction.
 
 ## Basic usage
 
-<!-- Provide a few examples of the extension's most common use cases. Remember the Pareto
-principle! -->
-
-To generate a greeting, add the `hello` directive to your document:
+To add a YouTube link to your document, use the `youtube` directive with the desired
+YouTube URL:
 
 ```
-.. hello:: world!
+.. youtube:: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+You can also specify a custom title:
+
+```
+.. youtube:: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+   :title: Custom Video Title
 ```
 
 ## Project setup
 
-<!-- Provide the simplest way to install the extension. In most cases, this will
-be via `pip`. -->
-
-hello-ext is published on PyPI and can be installed with:
+youtube-links is published on PyPI and can be installed with:
 
 ```bash
-pip install hello-ext
+pip install youtube-links
 ```
 
-After adding hello-ext to your Python project, update your Sphinx's conf.py file to
-include hello-ext as one of its extensions:
+After adding youtube-links to your Python project, update your Sphinx's conf.py file to
+include youtube-links as one of its extensions:
 
 ```python
 extensions = [
-    "hello_ext"
+    "youtube_links"
 ]
 ```
 
 ## Community and support
 
-<!-- This is boilerplate. Replace the extension name and GitHub link. -->
-
 You can report any issues or bugs on the project's [GitHub
-repository](https://github.com/canonical/sphinx-ext-template).
+repository](https://github.com/canonical/youtube-links).
 
-hello-ext is covered by the [Ubuntu Code of
+youtube-links is covered by the [Ubuntu Code of
 Conduct](https://ubuntu.com/community/ethos/code-of-conduct).
 
 ## License and copyright
 
-<!-- Replace the extension name and, if necessary, the extension's license. -->
-
-hello-ext is released under the [GPL-3.0 license](LICENSE).
+youtube-links is released under the [GPL-3.0 license](LICENSE).
 
 © 2025 Canonical Ltd.
