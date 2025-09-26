@@ -1,5 +1,5 @@
 [project]
-name = "youtube-links"
+name = "sphinx-youtube-links"
 description = "A Sphinx extension for embedding YouTube video links."
 dynamic = ["version", "readme"]
 requires-python = ">=3.10"

@@ -1,6 +1,6 @@
-# youtube-links
+# sphinx-youtube-links
 
-youtube-links adds a Sphinx directive that creates styled YouTube video links with
+sphinx-youtube-links adds a Sphinx directive that creates styled YouTube video links with
 automatic title extraction.
 
 ## Basic usage
@@ -21,14 +21,14 @@ You can also specify a custom title:
 
 ## Project setup
 
-youtube-links is published on PyPI and can be installed with:
+sphinx-youtube-links is published on PyPI and can be installed with:
 
 ```bash
-pip install youtube-links
+pip install sphinx-youtube-links
 ```
 
-After adding youtube-links to your Python project, update your Sphinx's conf.py file to
-include youtube-links as one of its extensions:
+After adding sphinx-youtube-links to your Python project, update your Sphinx's conf.py file to
+include sphinx-youtube-links as one of its extensions:
 
 ```python
 extensions = [
