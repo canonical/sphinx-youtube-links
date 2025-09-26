@@ -46,9 +46,9 @@ GitHub.
 Next, on your host system, clone your fork and sync it with the upstream repository:
 
 ```bash
-git clone git@github.com:<username>/youtube-links
-cd youtube-links
-git remote add upstream git@github.com:canonical/youtube-links
+git clone git@github.com:<username>/sphinx-youtube-links
+cd sphinx-youtube-links
+git remote add upstream git@github.com:canonical/sphinx-youtube-links
 git fetch upstream
 ```
 
@@ -57,8 +57,8 @@ If you don't authenticate with SSH, clone with
 instead:
 
 ```bash
-git clone https://github.com/<username>/youtube-links
-cd youtube-links
+git clone https://github.com/<username>/sphinx-youtube-links
+cd sphinx-youtube-links
 git remote add upstream https://github.com/canonical/youtube-links
 git fetch upstream
 ```

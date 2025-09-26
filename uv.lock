@@ -837,7 +837,7 @@ wheels = [
 ]
 
 [[package]]
-name = "youtube-links"
+name = "sphinx-youtube-links"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
