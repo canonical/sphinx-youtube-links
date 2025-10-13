@@ -26,6 +26,6 @@ author = "Tester"
 html_title = project
 
 extensions = [
-    "youtube_links",
+    "sphinx_youtube_links",
     "myst_parser",
 ]
