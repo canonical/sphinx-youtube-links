@@ -63,7 +63,9 @@ def test_extension_setup_function():
     assert result["parallel_write_safe"] is True
 
     # Check that directive was registered
-    app_mock.add_directive.assert_called_once_with("youtube", sphinx_youtube_links.YouTubeLink)
+    app_mock.add_directive.assert_called_once_with(
+        "youtube", sphinx_youtube_links.YouTubeLink
+    )
 
 
 def test_youtube_directive_instantiation():
