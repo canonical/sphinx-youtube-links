@@ -19,7 +19,7 @@
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
-from youtube_links import common
+from sphinx_youtube_links import common
 import requests
 from sphinx.application import Sphinx
 from sphinx.util.typing import ExtensionMetadata

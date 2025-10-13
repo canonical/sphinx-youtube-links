@@ -25,7 +25,7 @@ from unittest.mock import Mock, patch
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
-from youtube_links import YouTubeLink, setup
+from sphinx_youtube_links import YouTubeLink, setup
 
 
 class TestYouTubeLinksSetup:
@@ -36,7 +36,7 @@ class TestYouTubeLinksSetup:
         app_mock = Mock(spec=Sphinx)
         app_mock.add_directive = Mock()
 
-        with patch("youtube_links.common.add_css") as mock_add_css:
+        with patch("sphinx_youtube_links.common.add_css") as mock_add_css:
             result = setup(app_mock)
 
         assert result.get("version", "") == "0.1"
@@ -92,8 +92,8 @@ class TestYouTubeLinkDirective:
         assert "youtube_link" in html_content
         assert "Watch on YouTube" in html_content
 
-    @patch("youtube_links.requests.get")
-    @patch("youtube_links.BeautifulSoup")
+    @patch("sphinx_youtube_links.requests.get")
+    @patch("sphinx_youtube_links.BeautifulSoup")
     def test_run_with_automatic_title(self, mock_bs, mock_get):
         """Test directive execution with automatic title extraction."""
         # Mock successful HTTP response
@@ -110,7 +110,7 @@ class TestYouTubeLinkDirective:
         mock_bs.return_value = mock_soup
 
         # Clear the cache to ensure fresh request
-        youtube_links.cache.clear()
+        sphinx_youtube_links.cache.clear()
 
         result = self.directive.run()
 
@@ -124,7 +124,7 @@ class TestYouTubeLinkDirective:
             "https://www.youtube.com/watch?v=dQw4w9WgXcQ", timeout=10
         )
 
-    @patch("youtube_links.requests.get")
+    @patch("sphinx_youtube_links.requests.get")
     def test_run_with_http_error(self, mock_get):
         """Test directive execution when HTTP request fails."""
         import requests
@@ -133,7 +133,7 @@ class TestYouTubeLinkDirective:
         mock_get.side_effect = requests.HTTPError("404 Not Found")
 
         # Clear the cache to ensure fresh request
-        youtube_links.cache.clear()
+        sphinx_youtube_links.cache.clear()
 
         with patch("builtins.print") as mock_print:
             result = self.directive.run()
@@ -151,7 +151,7 @@ class TestYouTubeLinkDirective:
         """Test that the directive uses cached titles."""
         # Pre-populate cache
         url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        youtube_links.cache[url] = "Cached Title"
+        sphinx_youtube_links.cache[url] = "Cached Title"
 
         result = self.directive.run()
 
@@ -177,4 +177,4 @@ class TestYouTubeLinkDirective:
 
 
 # Import the module after defining the tests
-import youtube_links
+import sphinx_youtube_links

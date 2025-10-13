@@ -29,32 +29,32 @@ from docutils import nodes
 from docutils.statemachine import StringList
 
 # Add the extension to the path
-sys.path.insert(0, str(Path(__file__).parents[2] / "youtube_links"))
+sys.path.insert(0, str(Path(__file__).parents[2] / "sphinx_youtube_links"))
 
 
 def test_extension_can_be_imported():
     """Test that the extension can be imported without errors."""
     try:
-        youtube_links = import_module("youtube_links")
+        sphinx_youtube_links = import_module("sphinx_youtube_links")
 
-        assert hasattr(youtube_links, "setup")
-        assert callable(youtube_links.setup)
-        assert hasattr(youtube_links, "YouTubeLink")
+        assert hasattr(sphinx_youtube_links, "setup")
+        assert callable(sphinx_youtube_links.setup)
+        assert hasattr(sphinx_youtube_links, "YouTubeLink")
     except ImportError as e:
-        pytest.fail(f"Failed to import youtube_links: {e}")
+        pytest.fail(f"Failed to import sphinx_youtube_links: {e}")
 
 
 def test_extension_setup_function():
     """Test that the setup function returns correct metadata."""
     from unittest.mock import Mock
 
-    import youtube_links
+    import sphinx_youtube_links
 
     app_mock = Mock()
     app_mock.add_directive = Mock()
 
-    with patch("youtube_links.common.add_css"):
-        result = youtube_links.setup(app_mock)
+    with patch("sphinx_youtube_links.common.add_css"):
+        result = sphinx_youtube_links.setup(app_mock)
 
     assert "version" in result
     assert "parallel_read_safe" in result
@@ -63,17 +63,17 @@ def test_extension_setup_function():
     assert result["parallel_write_safe"] is True
 
     # Check that directive was registered
-    app_mock.add_directive.assert_called_once_with("youtube", youtube_links.YouTubeLink)
+    app_mock.add_directive.assert_called_once_with("youtube", sphinx_youtube_links.YouTubeLink)
 
 
 def test_youtube_directive_instantiation():
     """Test that YouTube directive can be instantiated."""
     from unittest.mock import Mock
 
-    import youtube_links
+    import sphinx_youtube_links
 
     # Test directive can be created
-    directive = youtube_links.YouTubeLink(
+    directive = sphinx_youtube_links.YouTubeLink(
         name="youtube",
         arguments=["https://www.youtube.com/watch?v=test"],
         options={"title": "Test Title"},
@@ -96,9 +96,9 @@ def test_youtube_directive_execution():
     """Test that YouTube directive can be executed."""
     from unittest.mock import Mock
 
-    import youtube_links
+    import sphinx_youtube_links
 
-    directive = youtube_links.YouTubeLink(
+    directive = sphinx_youtube_links.YouTubeLink(
         name="youtube",
         arguments=["https://www.youtube.com/watch?v=test"],
         options={"title": "Test Title"},

@@ -32,7 +32,7 @@ include sphinx-youtube-links as one of its extensions:
 
 ```python
 extensions = [
-    "youtube_links"
+    "sphinx_youtube_links"
 ]
 ```
 
