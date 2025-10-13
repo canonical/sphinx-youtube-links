@@ -83,6 +83,14 @@ format-codespell:  ##- Fix spelling issues with codespell
 format-prettier: install-npm  ##- Format files with prettier
 	$(PRETTIER) --write $(PRETTIER_FILES)
 
+.PHONY: setup-tests
+setup-tests: install-uv install-build-deps ##- Set up a testing environment without linters
+	uv sync $(UV_TEST_GROUPS)
+
+.PHONY: setup-lint
+setup-lint: install-uv install-shellcheck install-pyright install-lint-build-deps  ##- Set up a linting-only environment
+	uv sync $(UV_LINT_GROUPS)
+
 .PHONY: lint-ruff
 lint-ruff: install-ruff  ##- Lint with ruff
 ifneq ($(CI),)
