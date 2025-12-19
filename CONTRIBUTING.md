@@ -101,7 +101,7 @@ changes on.
 git checkout main
 git pull upstream main
 git checkout -b <new-branch-name>
-make setup
+make install
 ```
 
 The new branch name should be brief, at no more than 80 characters. Format your branch
@@ -189,7 +189,7 @@ code. In such cases, it's best to delete your virtual environment and start over
 ```bash
 rm -rf .venv
 make clean
-make setup
+make install
 ```
 
 ### Push the branch and open a PR
