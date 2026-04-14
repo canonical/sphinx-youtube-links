@@ -9,11 +9,11 @@ categories:
     labels:
       - "bug"
   - title: "Specifications and Documentation"
-    label:
+    labels:
       - "specification"
       - "doc"
   - title: "Tooling"
-    label:
+    labels:
       - "tooling"
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 template: |
