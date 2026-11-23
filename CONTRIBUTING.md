@@ -225,7 +225,6 @@ interface, as it leads to fewer potential conflicts with syncs.
 Don't force-push changes to the branch. It destroys the history of the review and makes
 it harder for maintainers to see code changes.
 
-
 Once approved, the maintainer will fit your changes into an upcoming release. Patch
 versions and minor versions are usually released at a regular cadence, but major
 versions aren't tagged as frequently. If your change is breaking, it may be some time
