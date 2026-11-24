@@ -24,6 +24,7 @@ import sys
 from importlib import import_module
 from pathlib import Path
 from typing import cast
+from unittest.mock import Mock
 
 from docutils import nodes
 from docutils.statemachine import StringList
@@ -145,13 +146,37 @@ def example_project(request) -> Path:
     return target_dir
 
 
+# Canned response for the video page that the example project links to, so that the
+# build doesn't depend on youtube.com being reachable.
+FAKE_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+FAKE_VIDEO_TITLE = "Fake video title - YouTube"
+
+
+def fake_get(url: str, timeout: float) -> Mock:
+    assert url == FAKE_VIDEO_URL
+    response = Mock()
+    response.raise_for_status.return_value = None
+    response.text = f"<html><head><title>{FAKE_VIDEO_TITLE}</title></head></html>"
+    return response
+
+
 @pytest.mark.slow
-def test_sphinx_build(example_project):
+def test_sphinx_build(example_project, mocker):
     """Ensure that Sphinx builds successfully."""
+    import sphinx_youtube_links
+    from sphinx.cmd.build import build_main
+
+    # Run Sphinx in this process so that the HTTP requests can be patched.
+    mocker.patch.dict(sphinx_youtube_links.cache, clear=True)
+    mock_get = mocker.patch("sphinx_youtube_links.requests.get", side_effect=fake_get)
+
     build_dir = example_project / "_build"
-    subprocess.check_call(
-        ["sphinx-build", "-b", "html", "-W", example_project, build_dir],
-    )
+    exit_code = build_main(["-b", "html", "-W", str(example_project), str(build_dir)])
+    assert exit_code == 0
+
+    # The video with a :title: option isn't fetched, and the cache prevents a
+    # second request for the video that appears on two pages.
+    mock_get.assert_called_once_with(FAKE_VIDEO_URL, timeout=10)
 
     index = build_dir / "index.html"
 
@@ -163,8 +188,9 @@ def test_sphinx_build(example_project):
 
     shutil.rmtree(example_project)  # Delete copied source
 
-    ext_text = soup.find("p")
-    if ext_text:
-        print("Successful build.")
-    else:
-        pytest.fail("Directive output not found in document.")
+    titles = [
+        span["title"]
+        for link in soup.find_all("p", {"class": "youtube_link"})
+        for span in link.find_all("span", {"class": "play_icon"})
+    ]
+    assert titles == [FAKE_VIDEO_TITLE, "Custom Title Video"]
